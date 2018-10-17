@@ -719,27 +719,539 @@ The objectives of this lab will be to use the shell and understand meta-characte
 1.  1 point extra credit each if you can compile and run Space_java and or Space_C. *Note* Space_java is a Netbeans project.  Space_C is an old Visual Studio C++ project.  
      i) Take a screenshot of the above command with output
 
-
 ## Chapter 07
 
-### Podcast
+### Review Questions
 
-### Lab
+Introduction to Linux Editors, Introduction to Shell Scripts, and User Profiles
 
+Chapter 07 review questions
+
+1.  What are the two main representatives of stream editors?  
+a. gedit and kate
+b. Nano and Joe
+c. vi and Nano
+d. vi and Emacs
+
+2. Which family of editors came first?
+a. Screen editors
+b. Butterfly editors
+c. GUI editors
+d. Stream Editors
+
+3. Emacs at it's core is what?
+a. A fine operating system in need of a good editor
+b. The heart and soul of hackers
+c. An interpreter for Emacs Lisp
+d. A C program
+
+4. Who created the vi editor?
+a. Richard Stallman
+b. Doug McIlroy
+c. Bill Joy
+d. Dave McKenzie
+
+4. What year was vi release in?
+a. 1972
+b. 1979
+c. 1999
+d. 1978
+
+5. Which of the following sequences of the history of vi is correct?
+a. Emacs -> ed -> ex -> vi
+b. ed -> em -> ex -> vi -> vim
+c. em -> ex -> vi
+d. em -> ed -> vi -> vim
+
+6.  What are the three modes in vi?  
+
+7.  What is the key you use in vi to transition between COMMAND MODE and INSERT mode? 
+
+8.  What command sequence (key) in vi will add text to the right of the current cursor position?  (just the letter)
+
+9.  What command sequence (key) in vi will move you to the beginning of the next word? (just the letter)
+
+10. What command sequence in vi will delete a single line based on the current cursor position? (just the letters)
+
+11. What command sequence in vi will delete 10 lines from the current cursor position? (just the numbers and letters)
+
+12. Which command in ex mode (vi) will save the current file you are working on and exit the vi editor? (include the ":")
+
+13.  In the log file u\_ex150911.log what would be the ex command to search forward for occurrences of YandexBot? (include the forward slash)
+
+14.  Assuming your pwd is Linux-text-book-part-I and you have loaded Chapter-02.chapter-02.md into vi, what would be the ex mode command to replace all occurrences of linux with Linux?
+
+15.  Assuming your pwd is Linux-text-book-part-I and you have loaded Chapter-02.chapter-02.md into vi, what would be the ex mode command to replace all occurrences of Linux with GNU/Linux? (remember to escape the /)
+
+16.  Assuming the your pwd is Linux-text-book-part-I and you have loaded Chapter-02.chapter-02.md into vi, what would be the ex mode command to remove all occurrences of the word Windows?
+
+17. Assuming a file name topsecret.sh has a permission of 644 - what is the shortcut to give the owner of the file permission to execute the script?
+
+18. Assuming a file named moretopsecret.sh has a permission of 757 - what is the shortcut to remove all permissions from the the other group?
+
+19. What is the correct sequence of profile inheritance?
+a. /etc/profile -> ~/.bash_profile or ~/.bash_login or ~/.profile -> ~/.bashrc
+b. ~/.bashrc -> ~/.bash_profile or ~/.bash_login or ~/.profile -> /etc/profile
+
+20.  What is the command to display the contents of the PATH system variable on the command line?
+a. echo PATH
+b. echo $PATH
+c. echo path
+d. $PATH
+
+### Podcast Questions
+
+Listen to the FLOSS podcast number 88 with [Linus Torvalds - http://twit.tv/show/floss-weekly/88](http://twit.tv/show/floss-weekly/88 "FLOSS Linus Torvald")
+
+  *  ~6:32 Who is Linus Torvalds?
+  *  ~6:54 Where did he create Linux?
+  *  ~7:30 What did Unix have that other operating systems didn't at that time?
+  *  ~10:02 Within a few months of Linux first release roughly how many people were interested in Linux?
+  *  ~10:30 About what month and what year did this happen?
+  *  ~10:40-13:30 What was the initial inspiration to create the Linux Kernal as an open source project?
+  *  ~13:30-14:00 Why was it licensed under the GPL?
+  *  ~20:48 Why didn't Linus want to work for a Linux company?
+  *  ~41:00 More than the technology hurdle what else is needed to get into Linux Kernel Development?
+  *  ~46:10 What is the way to become a great programmer?
+  *  ~51:17 What is Linus' farewell message to the audience?
+
+### Lab Chapter 7
+
+__Objectives:__ The objective of this lab is to master vi commands and shell scripts
+
+__Outcomes:__ At the end you will have mastered the basics of vi and now be proficient in all the tools of Linux shell scripting
+
+*Prereqs:*  You will need to install the program ```vimtutor``` for the first part.   You can do that on Ubuntu by typing ```sudo apt-get install vim vim-runtime vim-gtk``` and on Fedora by typing ```sudo dnf install vim vim-enhanced```. 
+
+1) To begin type the command ```vimtutor``` from the commandline. __Warning:__ ```vimtutor``` requires you to read the instructions carefully.
+    i) This is a 6 part tutorial.  You need to follow all the steps of the 6 part tutorial making your changes directly in the file.
+    i) __Be careful__ to save the file to an external location – otherwise IT WILL BE OVERWRITTEN each time you launch the vimtutor command. You can do this by typing ```:w  ~/Documents/vimtutor.txt``` - this way you can edit the file on your local system instead of launching the vimtutor application again.  Note you need to use ```vim``` for this assignment.
+1) Inside of the ```files/Chapter-07/lab``` folder using ```vim``` open ```install-java-8-openjdk.sh```.  You will be using vim to modify this file
+    i)  Use the ex command to find all occurances of ```;``` and replace them with ```&&```.
+    i)  Using vim commands replace all occurances of the numbers ```2.6.5``` with ```3.0.0```.
+    i)  Using vim to append the packages ```python``` and ```python-dev``` to line 18.  
+    i)  In the shell script,  ```install-java-8-openjdk.sh```,  using vim insert a comment above each line explaining what the commmand is doing.
+1) In vim using the file ```install-java-8-openjdk-fixed.sh```,  there are numerous path, permission, and dependency errors.  Using vim, fix the shell script, give it executable permission, and have it run succesfully.   
+    i) use the find command to locate tools.jar and change the path in line 9.
+    i) there are directories that don't exist -- change those paths
+    i) replace the references to my home directory
+    i) after sourcing the ```.bashrc``` file with the command ```. ~/.bashrc```, execute the command ```hadoop version``` if version information outputs succesfully then you have succeded.
+    
+__Deliverable:__  
+
+1) Push the file ```install-java-8-openjdk.sh``` in your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
+1) Push the file ```vimtutor.txt``` to your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
+1) Push the file ```install-java-8-openjdk-new.sh``` to your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
 
 ## Chapter 08
 
-### Podcast
+### Review Questions
+
+1) True or False The Bash shell scripting language has traditional language constructs like C or Java?
+
+2) What meta-character do you use to access the content of a shell variable?
+a.  ```$```
+b.  ```#```
+c.  ```!```
+d.  No character - trick questions
+
+3) When assigning the standard output of a command to a variable what characters do you encase the command in?
+a. \`\`
+b. ```$```
+c. ```""```
+d. No characters - trick questions
+
+4) True or False - You can include shell meta-charecters inside of two backticks ```\`\```` - example: ```ANS=`ls -l test[1-5]````
+
+5) Which command will list the names of any file that matches these names: file1.txt file2.txt file3.txt file4.txt and send the content of that output to a variable named DIR?
+a.  ```DIR='ls -l ./test[1-4].txt'```
+b.  ```DIR = \`ls -l ./test[1-4].txt\````
+c.  ```$DIR=\`ls -l ./test[1-4].txt\````
+d.  ```DIR=\`ls -l ./test[1-4].txt\````
+
+6) Which of these are valid commands in the first line of a shell script?  (Choose any - assume any paths are valid paths to executables)
+a. ```#!/bin/bash```
+b. ```!#/bin/bash```
+c. ```#!/usr/local/bin/bash```
+d. ```#/bin/bash```
+e. ```#!/bin/ksh```
+
+7) If you stored the output of the command hostname into a variable named sys-hostname, what would be the command to print the content to the screen?
+a.  ```echo $HOSTNAME```
+b.  ```echo $hostname```
+c.  ```echo $SYS-HOSTNAME```
+d.  ```echo $sys-hostname```
+
+8) What is the name of the command to print out all the predefined system variables?
+
+9) What is the name of the command that allows you to take stdout of a command and insert the lines of output into an array?
+a. arrayfile
+b. declare
+c. for loop
+d. mapfile
+
+10)  Which of these is a valid command to take the output of this find command and assign the contents to an array?  (Assume the array name has already been declared. Choose one)
+a. ```mapfile SEARCHARRAY = (find ~ -name mozilla*)```
+b. ```mapfile SEARCHARRAY < < (find ~ -name mozilla*)```
+c. ```mapfile -t SEARCHARRAY < <(find ~ -name mozilla*)```
+d. ```mapfile -t SEARCHARRY < (find ~ -name mozilla*)```
+
+11)  Which below is a valid command to find the LENGTH of an array?
+a. ```${#SEARCHARRAY[@]}```
+b. ```${SEARCHARRAY[@]}```
+c. ```${SEARACHARRAY[#]}```
+d. ```${@SEARCHARRAY[#]}```
+
+12)Based on this shell script and positional parameters, what would the command be to print out the first positional parameter after the script name? ```./delete-directory.sh ~/Documents/text-book Jeremy```
+a.  ```echo $0```
+b.  ```echo $1```
+c.  ```echo args[1]```
+d.  ```echo {$1}```
+
+13) Based on this shell script and positional parameters, what would the command be to print out the entire content of the positional parameter array? ```./delete-directory.sh ~/Documents/text-book Jeremy```
+a.  ```echo $#```
+b.  ```echo @!```
+c.  ```echo $0```
+d.  ```echo $@```
+
+14) Based on this shell script and positional parameters, what would the command be to print out the LENGTH of the positional parameter array? ```./delete-directory.sh ~/Documents/text-book Jeremy```
+a.  ```echo $#```
+b.  ```echo @!```
+c.  ```echo $0```
+d.  ```echo $@```
+
+15) In a Bash IF statement, what is the name for the pre-made test conditions?
+a. Primaries
+b. Secondary expressions
+c. Expression
+d. Primary expressions
+
+16) All values in a Bash IF statement are of what data type by default?
+a. INT
+b. STRING
+c. NULL
+d. CHAR
+
+17) Which of these answers will execute a shell script named ~/backup.sh at 2 am every night of the week?
+a. ```* * * * * ~/backup.sh```
+b. ```2 * * * * ~/backup.sh```
+c. ```* 2 * * * ~/backup.sh```
+d. ```* * * 2 * ~/backup.sh```
+
+18) Which of these answers will execute a shell script named ~/clean-directory.sh every 15 minutes?
+a. ```3/15 * * * * ~/clean-directory.sh```
+b. ```*/15 * * * * ~/clean-directory.sh```
+c. ```* 3/15 * * * ~/clean-directory.sh```
+d. ```* */15 * * * ~/clean-directory.sh```
+
+19) Which of the crontab builtins would you use to execute a cron job 1 time a year on midnight of January 1st?  The name of the script is ~/give-free-cash-to-students.sh
+a. ```* * * * 1 ~/give-free-cash-to-students.sh```
+b. ```1 * * * * ~/give-free-cash-to-students.sh```
+c. ```1 1 1 1 1 ~/give-free-cash-to-students.sh```
+d. &#64;```yearly ~/give-free-cash-to-students.sh```
+
+20) What is the name of the control structure that allows you to incrementally through the contents of an array?
+a. IF
+b. CASE
+c. UNTIL
+d. FOR
+
+### Podcast Questions
+
+__Jenkins__
+
+[https://twit.tv/shows/floss-weekly/episodes/443](https://twit.tv/shows/floss-weekly/episodes/443 "jenkins on floss weekly podcast")
+
+Kohsuke Kawaguchi
+
+* ~3:30 What is Jenkins and what does it do?
+* ~7:54 What problem are people solving when using Jenkins?
+* ~9:25 What are Jenkins plugins and why do they exist? 
+* ~10:33 How did Jenkins get started?
+* ~13:30 What was happening to Sun in 2004/2005?
+* ~14:37 Why did the project name change from Hudson to Jenkins?
+* ~20:30 What licesnse does Jenkins use and why?
+* ~21:09 What language is Jenkins built on?
+* ~22:00 What is Koshuke's company name and who does he compare his company too?
+* ~29:25 What is the approximate size of the developer community?
+* ~34:55 What has changed in Jenkins since 2011?
+* ~40:00 What are some of the benefits of using a opensource softare with alarge comminity of users?
+* ~42:30 What does CloudBees provide for Jenkins customers?
+* ~45:20 Who has control over the Jenkins project - the Jenkins developer community or CloudBees?
 
 ### Lab
 
+__Objectives__
+
+This lab will allow you to create shell scripts.  Use positional parameters, control structures, and write cron jobs.
+
+__Outcomes__
+
+At the completion of this lab you will further your knowledge of shell scripting and enhance your abilities using Bash shell scripts.
+
+__Notes__ 
+
+In the Github repo provided to you please create a folder in your ITMO-556 directory named Chapter-08.  In this directory you will create a file called ReadMe.md and all of the answers, screenshots, and code will be contained in this document.  Submit to Blackboard just your Github URL.
+
+1) What would be the command to create an array in Bash named itemARRAY?
+
+1) Write a shell script that declares an array in Bash named dirarr. Using the mapfile command - redirect the output of the ls -l ~ command into the array previously named and echo out the 3rd and 4th elements of that array.
+  
+1) Write a for loop to iterate through that array and print every element of the line out on the screen.  (Make sure you detect the length of the array and use a $LENGTH variable as your sentinel condition.
+  
+1) Write the syntax to make a cronjob execute 5 minutes past every hour everyday to execute the shellscript you previously made to store the content of ls -l ~ into an array named dirarr.
+  
+1)  From the clones textbook code,  locate the file install-java8.sh located in the **files/Chapter-08/lab** directory.  Modify the script to include IF statements to check for the existance of the path ```/datapool1``` and to print an error message if the path does not exist.
+  
+1) Modify install-java8.sh again--this time take a positional parameter and put that in place of the directory name ```/datapoo1``` (this will allow you to customize the install location of the shell script).  
+  
+1) Modify the install-java8.sh from the previous question to count the number of positional parameters and if less than 1 or more than 1 stop execution of the script.
+  
+1) Create a directory in ```~``` named ```topsecret```.  In that directory create a file named xfile.txt.  Write a shell script to check if that file has executable permission by passing the filename as a positional paramter.  If TRUE print a message.  If FALSE print an error message that the positional parameter name of the file is not executable.
+  
+1) Write a shell script to check in the ~/topsecret directory to see if a given file name exists.  If TRUE print a message else print an error message with the given file name being passed.
+  
+1) Write a shell script to check if a given PATH is a file or a directory.  If TRUE print a message, else print an error message using the given file name.
+  
+1) Write a shell script that take 4 positional parameters.  In the shell script print out $0, $#, and $@ with an explanation of what these variables contain.
+  
+1) Repeat the previous cron command but this time redirect the standard out and standard error to a file named ~/Documents/my.log
+  
+1) Using awk and other tools, how would you find which ip caused the most HTTP 404 errors? Take a screenshot of the command and the output.  Use these two files in ```files/Chapter-08/logs```: u_ex150721.log, u_ex151002.log.
+
+1) Using awk and other tools, how would you capture the top 5 offending IPs? Take a screenshot of the command and the output. Use these two files in ```files/Chapter-08/logs```: u_ex150721.log, u_ex151002.log.
+
+1) Using sed, type the command to find the line **bind-address** located in the mariadb database server config file (you might need to install mariadb-server).  The file locations are: Fedora 28 ```/etc/my.cnf.d/mariadb-server.cnf``` and Ubuntu 16 and 18 ```/etc/mysql/mariadb.conf.d/50-server.cnf```.  Comment out the value, change the IP value to 0.0.0.0, and write the change back to the original file.  Take a screenshot of the command.
 
 ## Chapter 09
 
-### Podcast
+### Review Questions
+s
+1) What user account has superuser privilege in Linux?
+a. ```sudo```
+b. ```su```
+c. ```superuser```
+d. ```root```
+
+2) Which command do you use to temporarily elevate your user's privilege to the superuser (root)?
+a. ```su```
+b. ```sudo```
+c. ```su -```
+d. ```root```
+
+3) How can you display the content of a file named topsecret.txt that has permissions 000 and is owned by another user?
+a.  You can't do that
+b.  ```root cat topsecret.txt```
+c.  ```sudo cat topsecret.txt```
+d.  ```su cat topsecret.txt```
+
+4) What licesnse is the sudo application under?
+a.  GPL
+b.  BSD
+c.  Public Domain
+d.  ISC
+
+5) Which operating system doesn't have an active root account by default?
+a. Debian
+b. Ubuntu
+c. All Debian based distros
+d. Fedora
+
+6) What is the name of the file where sudo privilege are kept?
+a. /etc/sudo
+b. visudo
+c. /etc/allow
+d. /etc/sudoers
+
+7) What is the name of the command used to modify /etc/sudoers to grant a new user sudo privilege?
+a. Just use vi to edit it directly
+b. Logout and log back in as root and do it
+c. visudo
+d. sudo visudo
+
+8) Based on this line in /etc/sudoers - ```%meninblack  ALL=(ALL:ALL) ALL``` - what does the first value by the % mean?
+a.  Name of a group
+b.  Name of a user
+c.  Name of the user group
+d.  Name of a process
+
+9) In the /etc/sudoers file - what does this line mean: ```RMS ALL=(root) NOPASSWD: ALL```
+a.  The user RMS has sudo permissions and access to all commands
+b.  The user RMS has sudo permissions
+c.  The group RMS has sudo permissions to all commands
+d.  The user RMS has sudo permissions and access to all commands, and requires no password to elevate to the sudo user
+
+10) When using the su command to switch from a regular user account to the root user account, what do you type to return to the standard user account?
+a.  quit
+b.  exit
+c.  stop
+d.  sudo reboot
+
+11) What command would you use to edit the file at this location:  /var/www/html/index.html?
+a.  vi /var/www/html/index.html
+b.  sudo vim /var/www/html/index.html
+c.  vim /var/www/html/index.html
+d.  You need to ```chown``` the file and change the owner
+
+12) On a Linux system, which directory are all the traditional system (non-systemd) logs kept in?
+a.  /var/run
+b.  /logs
+c.  /var/adm/log
+d.  /var/log
+
+13) Under systemd and journald where are the logs kept?
+a.  /var/log
+b.  /var/log/error
+c.  /var/log/journald
+d.  Trick question - as logs are stored in a binary format and retrieved via journalctl
+
+14) What is the command you use to query the system logs in systemd?
+a.  systemctl
+b.  journald
+c.  journalctl
+d.  showlogs
+
+15) How would you filter the systemd log based on time? (Which is valid syntax?)
+a.  ```journalctl --since=yesterday```
+b.  ```journalctl --since=tomorrow```
+c.  ```journalctl --yesterday```
+d.  ```journalctl --filter=yesterday```
+
+16) Where is the journald.conf file located?
+a. /etc/logrotate.conf
+b. /etc/systemd/journalctl.conf
+c. /etc/systemd.conf
+d. /etc/systemd/journald.conf
+
+17) What command provides a dynamic real-time view of a running system?
+a.  top
+b.  iostat
+c.  ranwhen
+d.  journalctl
+
+18) Debian based distros have an additional command to abstract the process to add users to the system - what is it?
+a.  useradd
+b.  usermod
+c.  adduser
+d.  add
+
+19) What command would be used to modify a user account settings and add them to the sudo users group on an Ub untu distro (user is named controller)?
+a.  ```sudo useradd -aG sudo controller```
+b.  ```sudo usermod -aG sudo controller```
+c.  ```sudo usermod -G sudo controller```
+d.  ```sudo userdel controller```
+
+20) Which below are valid useradd commands?  (Choose all that apply)
+a. ```sudo useradd -c "User for spring class" -d "/home/export/controller" -G sudo -s /bin/ksh -m controller```
+b. ```sudo useradd -D controller```
+c. ```sudo useradd controller```
+d. ```sudo useradd -G sudo -s /bin/ksh -m controller```
+e. ```sudo useradd -c "User for spring class" -G sudo -m controller```
+
+### Podcast Questions
+
+NodeJS - [https://twit.tv/shows/floss-weekly/episodes/387](https://twit.tv/shows/floss-weekly/episodes/387 "NodeJS")
+
+Node.js Update
+
+* ~4:20 Where does Aaron (guy wearing black) say he is starting to see Node JS more and more?
+* ~7:22 What is Node.js?
+* ~8:50 Accroding to Mikael, what are we seeing an explosion of?
+* ~9:15 What language(s) is NodeJS similar to?
+* ~9:35 What is Event Driven Programming?
+* ~10:45 what is NodeJS package manager/ecosystem?
+* ~12:05 what kind of things would use Node?
+* ~17:20 What are the two popular desktop apps built in NodeJS that Mikael mentioned?
+* ~ 19:30 What are some of the ways to learn NodeJS?
+* ~ 21:30 What did Microsoft do with NodeJS and where did it get Node?
+* ~ 22:30 Mikael mentions multiple languages: TypeScript, CoffeeScript, Electron, and Dart -- what are they and how do they relate to the NodeJS project? (Need to do some side research)
+* ~25:27 What company started the NodeJS and eventually the NodeJS foundation? (Currently owned by Samsung)
+* ~ 26:43 What does the NodeJS foundation do (what is its role?)
+* ~ 34:00 Who is the guest and what is his job?
+* ~ 38:48 How much did Mikael reduce his code when he switched from Python to NodeJS?
+* ~41:54 is is possible to run NodeJS for command line scripting?
+* ~45:00 Where is pretty much every NPM module hosted?
+* ~47:40 What is the Go language good at and what is it not?
+* ~50:55 Is there any relationship between NodeJS and Docker?
 
 ### Lab
 
+Objectives
+
+The objective of this lab are as follows:
+
+* Understand when and how to use the sudo command
+* Understand how to edit the /etc/sudoers file
+* Understand how to use the journald and journalctl logging mechanism in systemd
+* Understand how to add and manage user accounts
+* Understand the structure and use of the cron service
+* Understand how to modify, use, and secure the SSH service
+
+Outcomes
+
+At the outcome of this lab you will be able to successfully understand how to apply the sudo/root user paradigm.  You will understand the binary logging mechanism of journald.  You will be able to add, delete, and modify user accounts.  Finally you will be able to schedule shell scripts to execute at repeated intervals.
+
+__Note__ Submit the answers all contained in one shellscript with a comment above stating which question the code answers
+__Note__ If a command asks you to work on a user that doesn't exist it is assumed that you have to create it.
+__Note__ The ```mysqldump``` application requires the ```mysql-client``` package to be installed. [http://superuser.com/questions/165582/installation-mysqldump](http://superuser.com/questions/165582/installation-mysqldump)
+
+1)  What would be the command to add a user named "controller" to your system - using the system default values?  
+
+1)  What would be the command to modify the user's group to add them to a *superuser* group (sudo on Ubuntu or wheel on Fedora based)?
+
+1)  What would be the command to delete a user account named nsa-spy?  (Note you also have to include the steps to add this user... unless the NSA is already in your system =)
+
+1)  What would be the command to edit the ```/etc/sudoers``` file and give the user "mysql-backup" sudo privilege? (Show the /etc/sudoers being edited and enter the relevant line that you add to that file)
+
+1)  What would be the command to edit the ```/etc/sudoers``` file and give the group "mysql-admins" sudo privilege? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
+
+1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only use the mysql database backup command "mysqldump" ? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
+
+1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only execute the ```mysql``` command and not require a password?
+
+1)  When you execute the command tail journalctl - you receive an error?  Show the error in a screenshot and explain why the error comes?
+
+1) What would be the command to execute to find all the occurences of logs generated by SSHD in journalctl?  P.168 in the text book -- you may need to install ```openssh-server``` package if the command returns no results
+
+1)  What would be the command to execute to find all the logs generated by _PID=1 (systemd itself) and since yesterday?
+
+1)  What would be the command to execute to see the logs of the current boot only using journalctl?
+
+1)  Which file and what value would I modify to change the journal's settings to make the logs be stored in memory (volatile)?
+
+1)  The journald values SystemMaxUse= and RuntimeMaxUse= default to 10% and 15% of the system disk respectively.  How would you modify that value to be 20% and 30% respectively?  (Note you can't add percentages, you have to use your system and do some scratch math - you can execute a ```df -H``` command to see the size of your root partition)
+
+1)  What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2 am every Sunday?
+
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at the 1st day of every month?
+
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) every 45 minutes?
+
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) on every 45 minutes past the hour on Sundays?  
+
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2:45am on this coming Tuesday only?
+
+1) What command would you use to change the group ownership of the file todo-list.txt to be owned by the "accounting" group?  (If that group doesn't exist then create it on your system)
+
+1) What would be the command you would type to generate a RSA key pair?
+
+1) What would be the command to transfer an RSA key pair to a remote system named logserver with the username worker?
+
+1) What would be the command to connect via ssh using the identity logserver and connect to the non-standard port of 5555 instead of the default 22?
+
+1) The next questions require some setup:
+   i. You need two virtual mahcines for this part: One Ubuntu 16.04 and one Fedora 28 (or two comparablely different OSes, FreeBSD, Trisquel, etc etc).  
+   i. You will need to modify the Network settings to **Bridged** in Virtualbox to get a public IP (if you are at home your router should suffice, if you are on campus you can come to the lab).  
+   i. Install **openssh-server** on Fedora28.
+   i. Clone the repository [https://github.com/arthepsy/ssh-audit](https://github.com/arthepsy/ssh-audit "SSH audit tool") to both the client and server system
+   i. Run the ssh audit on the client and server, list the weak ciphers installed by default
+
+1) Modify the client and servers using the example in the text to increase cipher strength, run the ssh-audit tool again and report any weak ciphers or security anomolies.
+
+1) On the SSH server make the following changes to the sshd_config file and paste them at the end of the ReadMe.md file
+  i. Not accept any password based authentication attempts
+  i. Change the default port to be 5555
+  i. Disable the value PermitRootLogin
 
 ## Chapter 10
 

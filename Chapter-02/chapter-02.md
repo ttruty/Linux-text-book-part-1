@@ -209,7 +209,7 @@ In 1975 Ken Thompson took a sabbatical from Bell Labs and went back to his Alma 
 
 By 1980, with many copies of Thompson's Unix now in circulation and nearly a decade of work there started to be fragmentation of the original Unix and many universities adding on their own customizations. At this time the Berkeley System Distribution of Unix was beginning to vary widely in functionality and quality from commercial AT&T UNIX. Since the code was technically proprietary under AT&T's ownership there was no way to contribute code back to AT&T and this led to fragmentation.  Another interesting problem AT&T had was that by the end of the 70's all those students who had learned Unix in college went to work in corporations and began to request Unix to be used as their corporate hardware platforms at work. Unix was the only operating system of its kind that could do this.  Now AT&T had a financial motive to commercialize Unix.  By 1982 AT&T released Unix System III, followed by System V in 1983, as a commercial product for sale to commercial companies, while creating a multi-hundred dollar academic licensed fee for universities.  By the dawn of the 1980s the first phase of Unix maturity was complete. The operating system, its code, and it's design philosophy were well proven and in wide use across universities and commercial enterprises. Into the 1980s the focus of Unix takes a dramatic shift to users and application creation.
 
-## Second Phase of Unix Maturity -- Unix Users and Application Development
+## Second Phase of Unix Maturity -- Unix Users, Application Development, and Licensing
 
 The next phase of Unix history revolves around the important work done by developers to create applications and standards around the Unix operating system to increase productivity and accessibility.  There are many people who contributed to this phase but among the names we will discuss there is none more important than Richard Stallman, also known as RMS.
 
@@ -243,6 +243,15 @@ In late 1985 the [FSF](http://www.fsf.org/ "FSF") -- *Free Software Foundation*,
 
 > *“Our mission is to preserve, protect and promote the freedom to use, study, copy, modify, and redistribute computer software, and to defend the rights of Free Software users.”*
 
+With this, they wrote the GPL - GNU Public Lisence, which is a legally enforceable copyleft license.  Copyleft is a play on the word copyright, which a copyright restricts the rights of a user.  Copyleft, on the other hand enshrines and enforces certain rights to the user of the software.  The **4 software freedoms** that the GPL licensed software enshrines are:
+
+1) the freedom to use the software for any purpose,
+1) the freedom to change the software to suit your needs,
+1) the freedom to share the software with your friends and neighbors, and
+1) the freedom to share the changes you make.
+
+> In using the term “Free software,” it means software that respects users' freedom and community. Roughly, it means that the users have the freedom to run, copy, distribute, study, change and improve the software. Thus, “free software” is a matter of liberty, not price. To understand the concept, you should think of “free” as in “free speech,” not as in “free beer”. We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom, to show we do not mean the software is gratis[^114]. 
+
 #### GCC, BASH, and GNU Coretools
 
 In 1984 RMS started his work of creating a free Unix-like operating system.  Since Unix was built upon the C programming language, the first thing needed to build a kernel, a shell, or any tooling was a *C compiler*.  This project was called GCC (GNU C Compiler) which was a *"free"* version of the proprietary Unix AT&T "cc" program (C Compiler).  
@@ -259,7 +268,7 @@ In their grand ambitions the GNU project was started in 1985 to create a kernel 
 
 Hurd made some false starts in its initial micro-kernel development phase causing multiple versions to be created and scrapped.  What they were trying to do was really innovative but really complicated and difficult to make work reliably. In retrospect Hurd was never finished.  By 1998 The GNU project had all but stopped active development and promotion of GNU Hurd as the kernel for its *free* operating system.  The GNU project realized that the Linux Kernel had accomplished what GNU had working on for 13 years in a mere 4 years.
 
-GNU Hurd still exists and is in a usable alpha stage. It is [downloadable today](http://www.gnu.org/software/hurd/ "GNU HURD Download") by joining it with the Debian Linux distribution applications--all GPL approved mind you.
+GNU Hurd still exists and is in a usable alpha stage. It is [downloadable today](http://www.gnu.org/software/hurd/ "GNU HURD Download") by joining it with the Debian Linux distribution applications--all GPL compliant mind you.
 
 The GNU project instead recommends using the Linux kernel instead and joining the GNU tools with it to form GNU/Linux.  In some ways this is the realization of Stallman's dream of a *free* operating system and yet some ways this was his biggest disappointment that Linus Torvalds and not the GNU project finished the kernel.  By 1991 a new name comes onto the scene, Linus Torvalds and the Linux kernel come along and make the next leap in the *free* and opensource operating system world by introducing the Linux kernel.
 
@@ -327,6 +336,8 @@ Some people think Linus' personality is a shtick or a comedy act he puts on.  Bu
 *  [Torvalds doesn't care](http://arstechnica.com/business/2015/01/linus-torvalds-on-why-he-isnt-nice-i-dont-care-about-you/ "Doesn't care")
 *  [Linus' response to previous article](http://arstechnica.com/business/2015/01/linus-torvalds-responds-to-ars-about-diversity-niceness-in-open-source/ "Response")
 
+On September 16, 2018, Linus Torvalds issued a public apology for his past behavior and temporarily stepped down as Linux Kernel maintainer.  You can read the apology letter on the [Kernel mailing list](https://lkml.org/lkml/2018/9/16/167 "Linus Apology").   Some say the apology wasn't needed, some say it is too little too late.  Others wonder if a man of Linus' age (48) can be reformed.  Some see this as a step in the right direction and offer a chance for redemption, some would prefer him never to return.  This opens a bigger question of what happens to the Linux Kernel if Linus never returns, who becomes the maintainer?  Time will tell.
+
 ### AT&T and BSD Lawsuit
 
 The nascent Linux project saw a rush of growth and developer contribution from August of 1991 to February of 1992. But where did all these developers come from?  At this time we need to go back to Berkeley University and check in on the BSD project, (Berkeley System Distribution).  In the late 80s and up to the early 1990s BSD Unix development had been flourishing at Berkeley.  Some would attribute this to great minds and an open environment, some would attribute it to lots of government funding.  Either way the product produced began to eclipse the commercial AT&T Unix in features and quality.  BSD began to significantly and irreconcilably differ from AT&T Unix.
@@ -372,6 +383,31 @@ You can read Raymond's two seminal books on Unix and opensource philosophy onlin
 
   * [The Art of Unix Usability](http://www.catb.org/~esr/writings/taouu/html/ "Book link")
   * [The Cathedral and the Bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/ "CatB")
+
+### Opensource Software Definition
+
+Open source doesn't just mean access to the source code. According to the [Opensource Initiative](https://opensource.org/ "Opensource Initiative") written by Bruce Perens, the now 10 rights enshrined in the OSD encompases the 4 software freedoms and extend them with a focus on applications in the business world. The distribution terms of open-source software must comply with the [following criteria:](https://opensource.org/osd-annotated "Annotated definition") 
+
+1. Free Redistribution
+    i) The license shall not restrict any party from selling or giving away the software as a component of an aggregate software distribution containing programs from several different sources. The license shall not require a royalty or other fee for such sale.
+2. Source Code
+    i) The program must include source code, and must allow distribution in source code as well as compiled form. Where some form of a product is not distributed with source code, there must be a well-publicized means of obtaining the source code for no more than a reasonable reproduction cost, preferably downloading via the Internet without charge. The source code must be the preferred form in which a programmer would modify the program. Deliberately obfuscated source code is not allowed. Intermediate forms such as the output of a preprocessor or translator are not allowed.
+3. Derived Works
+    i) The license must allow modifications and derived works, and must allow them to be distributed under the same terms as the license of the original software.
+4. Integrity of The Author's Source Code
+    i) The license may restrict source-code from being distributed in modified form only if the license allows the distribution of "patch files" with the source code for the purpose of modifying the program at build time. The license must explicitly permit distribution of software built from modified source code. The license may require derived works to carry a different name or version number from the original software.
+5. No Discrimination Against Persons or Groups
+    i) The license must not discriminate against any person or group of persons.
+6. No Discrimination Against Fields of Endeavor
+    i) The license must not restrict anyone from making use of the program in a specific field of endeavor. For example, it may not restrict the program from being used in a business, or from being used for genetic research.
+7. Distribution of License
+    i) The rights attached to the program must apply to all to whom the program is redistributed without the need for execution of an additional license by those parties.
+8. License Must Not Be Specific to a Product
+    i) The rights attached to the program must not depend on the program's being part of a particular software distribution. If the program is extracted from that distribution and used or distributed within the terms of the program's license, all parties to whom the program is redistributed should have the same rights as those that are granted in conjunction with the original software distribution.
+9. License Must Not Restrict Other Software
+    i) The license must not place restrictions on other software that is distributed along with the licensed software. For example, the license must not insist that all other programs distributed on the same medium must be open-source software.
+10. License Must Be Technology-Neutral
+    i) No provision of the license may be predicated on any individual technology or style of interface.
 
 ## Fourth Phase of Unix Maturity - The Rise of Commercial Linux
 
@@ -753,3 +789,5 @@ or <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA-3.0</a>, <a
 
 [^18]: By Kushal Das (Own work) <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>
 <a href="https://commons.wikimedia.org/wiki/File%3ALennart_poettering.jpg">via Wikimedia Commons</a>   
+
+[^114]: <a href="https://www.gnu.org/philosophy/free-sw.en.html">https://www.gnu.org/philosophy/free-sw.en.html</a>

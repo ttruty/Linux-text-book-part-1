@@ -11,29 +11,29 @@
 
 ### Outcomes
 
-  At the completion of this chapter you will have the ability to administer a Linux system.  You will have an understanding of Linux system logs, their standard locations, and their use.  You will have a knowledge of system monitoring tools and how to understand their output.  You will be able to administer user accounts on a Linux system. Finally you will be able to perform trouble shooting procedures on a Linux system.
+At the completion of this chapter you will have the ability to administer a Linux system.  You will have an understanding of Linux system logs, their standard locations, and their use.  You will have a knowledge of system monitoring tools and how to understand their output.  You will be able to administer user accounts on a Linux system. Finally you will be able to perform trouble shooting procedures on a Linux system.
 
 ## Sudo and the Root User Paradigm
 
-  On every Unix system dating back to Thompson's Unix, there has always been a single *superuser* account on every system.  This account is usually called the __root user__ or __root__.   The __root user__ must be used with the utmost care, as that account has all the system privilege and authority to carry out any operation, even the ```rm -rf /*``` command.  Root is good for getting things done or overriding users, but is *dangerous.* You should log into that account only sparingly.  Every single admin worth their salt will tell you not to use __root__ in almost any case [^90].  
+On every Unix system dating back to Thompson's Unix, there has always been a single *superuser* account on every system.  This account is usually called the __root user__ or __root__.   The __root user__ must be used with the utmost care, as that account has all the system privilege and authority to carry out any operation, even the ```rm -rf /*``` command.  Root is good for getting things done or overriding users, but is *dangerous.* You should log into that account only sparingly.  Every single admin worth their salt will tell you not to use __root__ in almost any case [^90].  
 
-  This concept is *vital* enough that on the Ubuntu distribution there is no __root__ account available. On the BSD distros, Debian, and the RedHat/Fedora family - there is still a __root__ account, partially because of tradition and partially because of the way system administration always worked.  Remember that Unix was developed in the environment of multiple users accessing a large central Unix server.  So you always had to have a __root__ account to override any activities of the users and to enforce system policies, such as disk quotas, changing network configurations, or even system wide profiles. As a reminder when you are signed in as, or acting as "root", the shell prompt displays __#__ as the last character in bash and as seen in the image below.  You can use the ```whoami``` command to find out what user account you are logged in as well.
+This concept is *vital* enough that on the Ubuntu distribution there is no __root__ account available. On the BSD distros, Debian, and the RedHat/Fedora family - there is still a __root__ account, partially because of tradition and partially because of the way system administration always worked.  Remember that Unix was developed in the environment of multiple users accessing a large central Unix server.  So you always had to have a __root__ account to override any activities of the users and to enforce system policies, such as disk quotas, changing network configurations, or even system wide profiles. As a reminder when you are signed in as, or acting as "root", the shell prompt displays __#__ as the last character in bash and as seen in the image below.  You can use the ```whoami``` command to find out what user account you are logged in as well.
 
 ![*Root User has the # sign as its shell*](images/Chapter-09/root/root.png "Root User Shell")
 
-  In order to change the user you are logged in as, without logging out, you use the ```su``` command.  Known as *superuser* or *switch user*.  By typing ```su root``` on the command line in Fedora Linux, you will be presented with a password prompt to enter the password you created during the install process for the root account.  You still need to type ```exit``` to logout from the user you switched too.  The sudo command on the other hand, only elevates you for a default period of 15 minutes and then returns you to your standard user account.  It is good habit to type ```sudo``` in front of any command that needs elevated privileges.
+In order to change the user you are logged in as, without logging out, you use the ```su``` command.  Known as *superuser* or *switch user*.  By typing ```su root``` on the command line in Fedora Linux, you will be presented with a password prompt to enter the password you created during the install process for the root account.  You still need to type ```exit``` to logout from the user you switched too.  The sudo command on the other hand, only elevates you for a default period of 15 minutes and then returns you to your standard user account.  It is good habit to type ```sudo``` in front of any command that needs elevated privileges.
 
 ### sudo  
 
-  As a great philosopher once said, *"With great power comes great responsibility."*  Seeing as __root__ has unintentionally dangerous uses a temporary system was devised to blunt the power of the __root__ account. The __sudo__ command was created by researchers at SUNY/Buffalo in New York in 1980 to allow users to run specific commands as a different user, in this case as root while not remaining or needing to sign in as root. 
+As a great philosopher once said, *"With great power comes great responsibility."*  Seeing as __root__ has unintentionally dangerous uses a temporary system was devised to blunt the power of the __root__ account. The __sudo__ command was created by researchers at SUNY/Buffalo in New York in 1980 to allow users to run specific commands as a different user, in this case as root while not remaining or needing to sign in as root. 
 
-  From 1986 to 1991, development of ```sudo``` moved to CU-Boulder in Colorado and gained the cu-sudo prefix. In 1991, the code was relicensed under the GPLv2.  In 1996 Todd C. Miller (one of the early maintainers) took the project under his wing moving a version of sudo to his own servers, to differentiate from cu-sudo.  By 1999 the code base was moved to the ISC license ( [Internet Systems Consortium](https://www.isc.org/ "ISC") ), the same license the bind-dns server is under, it is the preferred license of the OpenBSD project and is GPL compatible free license.  Todd C. Miller is paid by Dell to maintain ```sudo``` as part of his day job.  The sudo project homepage is located at [http://www.sudo.ws](http://www.sudo.ws). [A brief history of sudo](http://www.sudo.ws/history.html "Brief history of sudo") [^91]. The tool is often mispronounced "*su - doh*".  But actual pronunciation is "*su - doo*".    
+From 1986 to 1991, development of ```sudo``` moved to CU-Boulder in Colorado and gained the cu-sudo prefix. In 1991, the code was relicensed under the GPLv2.  In 1996 Todd C. Miller (one of the early maintainers) took the project under his wing moving a version of sudo to his own servers, to differentiate from cu-sudo.  By 1999 the code base was moved to the ISC license ( [Internet Systems Consortium](https://www.isc.org/ "ISC") ), the same license the bind-dns server is under, it is the preferred license of the OpenBSD project and is GPL compatible free license.  Todd C. Miller is paid by Dell to maintain ```sudo``` as part of his day job.  The sudo project homepage is located at [http://www.sudo.ws](http://www.sudo.ws). [A brief history of sudo](http://www.sudo.ws/history.html "Brief history of sudo") [^91]. The tool is often mispronounced "*su - doh*".  But actual pronunciation is "*su - doo*".  You can learn more about sudo implementation and security in a video by Michael Lucas entitlted, [Sudo: You're doing it wrong](https://www.youtube.com/watch?v=o0purspHg-o "Sudo you are doing it wrong").
 
 #### Ubuntu
 
-  Ubuntu is a bit different from the other Linux and Unix distros in regards to sudo.  They firmly believe not to have a root account as a point of differentiation.  They rely on ```sudo``` hence the cartoon above.  The first user you create (like in Windows and Mac) is automatically added to the __sudo__ usergroup and has sudo privilege.  Then any command you need *superuser* privileges you can simply ellevate to that privilege by typing the word ```sudo``` in front on any command.  Upon successful entry of your own password you will be elevated up to full system authority.  Some refer to this as *god mode* but I think using that term is a bit presumptuous as you do have absolute power over the system but ```sudo``` doesn't let you create the world in seven days.  
+Ubuntu is a bit different from the other Linux and Unix distros in regards to sudo.  They firmly believe not to have a root account as a point of differentiation.  They rely on ```sudo``` hence the cartoon above.  The first user you create (like in Windows and Mac) is automatically added to the __sudo__ usergroup and has sudo privilege.  Then any command you need *superuser* privileges you can simply ellevate to that privilege by typing the word ```sudo``` in front on any command.  Upon successful entry of your own password you will be elevated up to full system authority.  Some refer to this as *god mode* but I think using that term is a bit presumptuous as you do have absolute power over the system but ```sudo``` doesn't let you create the world in seven days.  
 
-  One example is you can assign the permission value of 000 to a file.  Who can access that file now?  According to the permissions, not even the owner can access it.  But the root user can, or a user issuign a ```sudo``` command.    You can find which users on a system have sudo permissions by displaying the /etc/sudoers file: ```cat /etc/sudoers``` (you need sudo privilege).  Here is a sample screen shot where you define which users can be in the sudo group.  You may not want to give admin privilege to every user.  The conf file, under the *user* section, allows you to specifiy root privileges per command. 
+One example is you can assign the permission value of 000 to a file.  Who can access that file now?  According to the permissions, not even the owner can access it.  But the root user can, or a user issuign a ```sudo``` command.    You can find which users on a system have sudo permissions by displaying the /etc/sudoers file: ```cat /etc/sudoers``` (you need sudo privilege).  Here is a sample screen shot where you define which users can be in the sudo group.  You may not want to give admin privilege to every user.  The conf file, under the *user* section, allows you to specifiy root privileges per command. 
 
 ![*Ubuntu 15.04 /etc/sudoers*](images/Chapter-09/root/etc-sudoers.png)
 
@@ -68,7 +68,7 @@ This last entry is a catch-all command for backward compatibility.  Ubuntu versi
 
 #### sudoers values
 
-  What do the values ```%admin  ALL=(ALL:ALL) ALL```  mean?  This particular command gives every user in the admin group access to execute every command the system.  It essentially turns the root account superuser privileges over temporarily to the user account or group that has that privilege.
+What do the values ```%admin  ALL=(ALL:ALL) ALL```  mean?  This particular command gives every user in the admin group access to execute every command the system.  It essentially turns the root account superuser privileges over temporarily to the user account or group that has that privilege.
 
 The first column is either a user account (no %) or preceded by a % sign meaning a user group.  The second column (or the first ALL) is the hostname of the systems that can allow elevation to *superuser*.  Now if this is your only system the value can be left at ALL.  But if you are preparing enterprise-wide /etc/sudoers configurations then you may want to specify *superuser* access only on particular systems.  The third column (second ALL) is the user that you will turn into when you use the *sudo* command.  By default it is __root__ but you may want it to be another specific user.  The fourth column after the : (third all) is the comma separated list of commands that user can execute. The fifth column (fourth ALL) is optional but it is an access control feature allowing only members of certain groups to sudo.
 
@@ -90,9 +90,9 @@ bkupuser ALL=(root) NOPASSWD: /usr/bin/mysqldump
 
 #### Fedora and other Linux
 
-   All other Linux distributions have a __root__ account user made at install time. Some minimal distributions or in FreeBSD case may only allow you to create a __root__ user at install time and make additional users your job to create.  In Fedora you can log into an GNOME session using the root account, there might be warnings from the operating system, as it is not expecting you to be logged in as __root__.  The __root__ user has its own home directory located at ```/root```.  Even if you are going to use the __root__ account it is still advised to log in as a regular user and then use the ```sudo``` or ```su``` commands to elevate and then exit those privileges.
+All other Linux distributions have a __root__ account user made at install time. Some minimal distributions or in FreeBSD case may only allow you to create a __root__ user at install time and make additional users your job to create.  In Fedora you can log into an GNOME session using the root account, there might be warnings from the operating system, as it is not expecting you to be logged in as __root__.  The __root__ user has its own home directory located at ```/root```.  Even if you are going to use the __root__ account it is still advised to log in as a regular user and then use the ```sudo``` or ```su``` commands to elevate and then exit those privileges.
 
-   Fedora and other Linux/Unix/Mac use different groups for sudo and *superuser* access.  That group is called *wheel*.  If you look at the ```/etc/sudoers``` output below from Fedora 22 system you see the groups and file content is slightly different.
+Fedora and other Linux/Unix/Mac use different groups for sudo and *superuser* access.  That group is called *wheel*.  If you look at the ```/etc/sudoers``` output below from Fedora 22 system you see the groups and file content is slightly different.
 
 ![*Fedora 22 /etc/sudoers*](images/Chapter-09/root/fedora-22-etc-sudoers.png "Fedora 22 sudoers")
 
@@ -108,13 +108,13 @@ That is sudo in a nutshell, be careful and happy sudo-ing.  To learn more about 
 
 ![*Logging*](images/Chapter-09/logs/640px-PONDEROSA_PINE_LOGS_STACKED_AT_PINE_INDUSTRY_MILL_-_NARA_-_542596.jpg "Logs") [^93]  
 
-  One of the most central functions of an operating system is logging.  Without logging facilites it would be difficult to keep track of what the system is doing.  The technical term for this is __introspection__.  In the course of your Linux career you will find the logging system to be of immense help.  Not only can it be used to debug problems and find errors or security issues, but also to monitor and measure that changes made to the operating system are working to prevent issues.  From here on out when there is an application problem in Linux - your first trouble shooting step should be to go to the logs.  
+One of the most central functions of an operating system is logging.  Without logging facilites it would be difficult to keep track of what the system is doing.  The technical term for this is __introspection__.  In the course of your Linux career you will find the logging system to be of immense help.  Not only can it be used to debug problems and find errors or security issues, but also to monitor and measure that changes made to the operating system are working to prevent issues.  From here on out when there is an application problem in Linux - your first trouble shooting step should be to go to the logs.  
 
 ### /var/log/\*
 
-  The default logging directory on all Linux systems is located in ```/var/log```.  This is the place where the kernel, the operating system, and any default installed services will place its logs. For 30+ years this was the convention and all common knowledge.  But with the recent adoption of systemd on all major Linux platforms, the logging facility that was once simple text, has now been moved into the ```journald``` and into a binary format. Note with the systemd take-over the logging convention has been changed to a binary format and placed under the ```journalctl``` command which we will cover in chapter 11.  But for Fedora 21 and any Ubuntu or Debian distro.
+The default logging directory on all Linux systems is located in ```/var/log```.  This is the place where the kernel, the operating system, and any default installed services will place its logs. For 30+ years this was the convention and all common knowledge.  But with the recent adoption of systemd on all major Linux platforms, the logging facility that was once simple text, has now been moved into the ```journald``` and into a binary format. Note with the systemd, the logging convention has been changed to a binary format and placed under the ```journalctl``` command which we will cover in chapter 11.  But for Fedora 28+ and any Ubuntu or Debian distro.
 
-  When you install additional packages, those packages too will add a directory for its own logs.  Note in the picture below there is a log called ```httpd``` that is created when you install the https (apache2 webserver package) to track the webserver error.log and access.log files.  You will notice in these screenshots that there is a log entry for VBoxGuestAdditions--telling you that you are using VirtualBox.
+When you install additional packages, those packages too will add a directory for its own logs.  Note in the picture below there is a log called ```httpd``` that is created when you install the https (apache2 webserver package) to track the webserver error.log and access.log files.  You will notice in these screenshots that there is a log entry for VBoxGuestAdditions--telling you that you are using VirtualBox.
 
 ![*Fedora contents of /var/log/\**](images/Chapter-09/logs/var-log.png "var log")
 
@@ -122,7 +122,7 @@ That is sudo in a nutshell, be careful and happy sudo-ing.  To learn more about 
 
 ### syslog
 
-  The operating system needs a convention on how all the logs are transferred and stored.  That method was called syslog.  Until 1980 there were various logging methods and schemes.  The one that caught on was called syslog and was actually part of an email program, Sendmail, initially.  Syslog permits the consolidation of logging data from different types of systems in a central repository.  Syslog logs can also be transmitted remotely and aggregated on a central system.  Originally the protocol used UDP to reduce network traffic, but now mandates the protocol to use TCP and even TLS.  Syslog listens on port 514 and has no authentication mechanism, deferring to the user to allow or block access via the firewall or other network access control. Fedora removed syslog as standard back in Fedora 20 and moved to ```journalctl```.  The system logs that had been stored in: [^94]
+The operating system needs a convention on how all the logs are transferred and stored.  That method was called syslog.  Until 1980 there were various logging methods and schemes.  The one that caught on was called syslog and was actually part of an email program, Sendmail, initially.  Syslog permits the consolidation of logging data from different types of systems in a central repository.  Syslog logs can also be transmitted remotely and aggregated on a central system.  Originally the protocol used UDP to reduce network traffic, but now mandates the protocol to use TCP and even TLS.  Syslog listens on port 514 and has no authentication mechanism, deferring to the user to allow or block access via the firewall or other network access control. Fedora removed syslog as standard back in Fedora 20 and moved to ```journalctl```.  The system logs that had been stored in: [^94]
 
 \newpage
 
@@ -155,13 +155,13 @@ Value    Severity        Keyword   		Description     			 	            Examples
 
 ### rsyslog
 
-  By the year 2004 the clear need for a syslog compatible but feature rich replacement was needed.  Rsyslog was developed by [Rainer Gerhards](http://www.gerhards.net/rainer "Rainer Gerhards") and in his words, __"Rsyslog is a GPL-ed, enhanced syslogd. Among others, it offers support for reliable syslog over TCP, writing to MySQL databases and fully configurable output formats (including great timestamps)."__  It was an improvement on syslog.  It made syslog extensible and eventually replaced syslog by default.  Most Linux distributions dropped the original syslog application and replaced it with rsyslog by 2010 [^95].    
+By the year 2004 the clear need for a syslog compatible but feature rich replacement was needed.  Rsyslog was developed by [Rainer Gerhards](http://www.gerhards.net/rainer "Rainer Gerhards") and in his words, __"Rsyslog is a GPL-ed, enhanced syslogd. Among others, it offers support for reliable syslog over TCP, writing to MySQL databases and fully configurable output formats (including great timestamps)."__  It was an improvement on syslog.  It made syslog extensible and eventually replaced syslog by default.  Most Linux distributions dropped the original syslog application and replaced it with rsyslog by 2010 [^95].    
 
 ### journald and systemd
 
-  Not to be outdone - systemd has preplaced syslog with journald.  And this has happened in every system that has adopted systemd - Debian 8, Fedora 22, Ubuntu 15.04/15.10, Centos 7.  You can read the initial journald announcement and [justification paper here](https://docs.google.com/document/pub?id=1IC9yOXj7j6cdLLxWEBAGRL6wl97tFxgjLUEHIX3MSTs&pli=1 "Justification Paper") [^96].
+Not to be outdone - systemd has preplaced syslog with journald.  And this has happened in every system that has adopted systemd - Debian 8, Fedora 22, Ubuntu 15.04/15.10, Centos 7.  You can read the initial journald announcement and [justification paper here](https://docs.google.com/document/pub?id=1IC9yOXj7j6cdLLxWEBAGRL6wl97tFxgjLUEHIX3MSTs&pli=1 "Justification Paper") [^96].
 
-  In Lennart Poeterring's own words, *"If you are wondering what the journal is, here's an explanation in a few words to get you up to speed: the journal is a component of systemd, that captures Syslog messages, Kernel log messages, initial RAM disk and early boot messages as well as messages written to STDOUT/STDERR of all services, indexes them and makes this available to the user. It can be used in parallel, or in place of a tradditional syslog daemon, such as rsyslog or syslog-ng."* [^97]
+In Lennart Poeterring's own words, *"If you are wondering what the journal is, here's an explanation in a few words to get you up to speed: the journal is a component of systemd, that captures Syslog messages, Kernel log messages, initial RAM disk and early boot messages as well as messages written to STDOUT/STDERR of all services, indexes them and makes this available to the user. It can be used in parallel, or in place of a tradditional syslog daemon, such as rsyslog or syslog-ng."* [^97]
 
   *"One of the impetuses behind the systemd journal is to centralize the management of logs regardless of where the messages are originating. Since much of the boot process and service management is handled by the systemd process, it makes sense to standardize the way that logs are collected and accessed. The journald daemon collects data from all available sources and stores them in a binary format for easy and dynamic manipulation. [^98]"*
 
@@ -237,7 +237,7 @@ journalctl --since=2012-10-15 --until="2011-10-16 23:59:59"
 
 > See log entries created only by the SSH service
 ```bash
-journalctl _COMM=sshd
+  journalctl -u sshd
 ```
 
 ### Log rotation
@@ -445,68 +445,126 @@ IF you have ever worked on Windows OS you will notice that they have much deeper
   * Permission
      +  Every file has permission on what is allowed to be done with it based on a simple access control of read write and execute.  Maybe you don't have permission to write and therefore can't delete a file. Perhaps the file is owned by someone else and they didn't give you permission.  Check permissions via ls -la or see if you need sudo.
   * dePendencies
-     +  The last thing is are all the correct software dependencies installed.  Perhaps you are missing a library or have an incompatible version that is preventing a tool from running?  For example in the sample above running runwhen, you need Python3 installed.  If you typed ```python runwhen.py``` you would receive a strange python error which would take you off on a useless googling experience.  The problem is you needed to type ```python3 runwhen.py``` and if you don't have python3 installed you will have a dependency problem.
+     +  Are all the correct software dependencies installed.  Perhaps you are missing a library or have an incompatible version that is preventing a tool from running?  For example in the sample above running runwhen, you need Python3 installed.  If you typed ```python runwhen.py``` you would receive a strange python error which would take you off on a useless googling experience.  The problem is you needed to type ```python3 runwhen.py``` and if you don't have python3 installed you will have a dependency problem.
   * All else fails and you still have a problem, see if it is a full moon outside. =)
 
 ## Secure Shell
 
-The internet and networks were developed in a day and age where trust was implied and limited to large institutions.  There was seen as no need for security or encryption of data sent over a network.  But as the ability to access data grew and the need to remotely access systems accross untrusted networks became a reality the ```rsh``` remote shell was no longer viable.   SSH or Secure Shell became a reality in 199x introduced by the security focused OpenBSD project and quickly adopted universally across Unix, Linux, and now even Microsoft Windows.  (Add link here to announcement)
+The internet and networks were developed in a day and age where trust was implied and limited to large institutions.  The need for security or encryption of data sent over a network was not appearent.  But as the ability to access data grew and the need to remotely access systems accross untrusted networks became a reality the ```rsh``` remote shell was no longer viable.   SSH or Secure Shell became a reality in 1999, appearing first in OpenBSD 2.6, introduced by the security focused OpenBSD project and quickly adopted universally across Unix, Linux, and now even Microsoft Windows.  In fact [Microsoft was the first ever gold-level sponsor of the OpenBSD project](https://undeadly.org/cgi?action=article&sid=20150708134520 "Microsoft was the first ever gold-level sponsor of the OpenBSD project").
 
 > You can access SSH from the command line via typing: ```ssh -V```
 
-By default the SSH *client* is installed on all Linux and Unix systems.  It can be installed on a Microsoft Windows system as a native package by adding it through the settings panel (find instructions) as it is being actively developed in step with OpenSSH from BSD I would recommend this above all other solutions available. 
+By default the SSH *client* is installed on all Linux and Unix systems.  It can be installed on a Microsoft Windows system as a native package by adding it through the settings panel (find instructions) as it is being actively developed in step with OpenSSH from BSD I would recommend this above all other solutions available.
 
-You can install the OpenSSH *server* that allows clients to make remote connections to your server.  This is predicated via either username account and password or RSA key.   
+You can install the OpenSSH *server* that allows clients to make remote connections to your server.  This is predicated via either username account and password or RSA key.
 
-> ```sudo apt-get install openssh-server```
-```sudo dnf install openssh-server```
-```ports install openssh-server```
+> ```sudo apt-get install openssh-server``` or ```sudo dnf install openssh-server```
 
 ### RSA keys
 
 SSH works because of Public/Private Key Encryption and a standard created and widely adopted by the RSA company.  Without going to deep into RSA encryption, this set of public and private keys allows you to securely transmit information accross an untrusted network.  How does it work?
 
-Each person generates a **keypair**, a public key and a private key. Both halves of the key make up the single key used for authentication.  These keys are exactly what they sound like.  The public key is something that is revealed openly, but without the unique private key the "lock" cannot be opened.  Think of the **public key** as the lock on your front door.  Conceivably anyone can come up to that lock and try to insert a key.  Unless they have the particular key, the lock won't open.   The **private key** is then something to be guarded with your life as anyone who has that key can log into any system where it has permission.   
+Each person generates a **keypair**, a public key and a private key. Both halves of the key make up the single key used for authentication.  These keys are exactly what they sound like.  The public key is something that is revealed openly, but without the unique private key the "lock" cannot be opened.  Think of the **public key** as the lock on your front door.  Conceivably anyone can come up to that lock and try to insert a key.  Unless they have the particular key, the lock won't open.   The **private key** is then something to be guarded with your life as anyone who has that key can log into any system where it has permission.
 
 How do you then exchange data?  First you generate a keypair.   On the command line you can issue the command: ```ssh-keygen``` and take notice of the prompts:
 
-Insert screen shots here:
-Insert screen shots here:
-Insert screen shots here:
+![*Windows 10 Native ssh -V*](images/Chapter-09/ssh/windows10-ssl-v.png "Windows 10 Native ssh -V")
 
-There is a command that will let you securely exchange RSA keys with a server.
+![*Fedora 28 Native ssh -V*](images/Chapter-09/ssh/fedora28-ssl-v.png "Fedors 28 Native ssh -V")
 
-```ssh-copy-id username@host```  which requires you first to have an account on the server (host) you are connecting to.
+![*Ubuntu 16.04.5 Native ssh -V*](images/Chapter-09/ssh/ubuntu16045-ssl-v.png "Ubuntu 16.04.5 Native ssh -V")
+
+![*FreeBSD 11.2 Native ssh -V*](images/Chapter-09/ssh/freebsd112-ssl-v.png "FreeBSD 11.2 Native ssh -V")
 
 #### OpenSSL
 
 Opensource Library used for crytographic key generation and by OpenSSH.  In 2016 suffered an exploit due to the nature of the library maintaining older code from non-existant systems as well as being woefully underfunded and understaffed.  Take note that although Google built its entire business using opensource and OpenSSL, they contributred almost nothing to its development.   After the exploit a hugh infusion of cash and adoption by the Linux Foundation of this project as a core infrastructure project has increased the quality of its security and development.
 
-[heartbleed]
+The heartbleed OpenSSL bug even has its own website to explain the deatils of it, located at [http://heartbleed.com](http://heartbleed.com "Heartbleed.com").
+
+> "The Heartbleed Bug is a serious vulnerability in the popular OpenSSL cryptographic software library. This weakness allows stealing the information protected, under normal conditions, by the SSL/TLS encryption used to secure the Internet. SSL/TLS provides communication security and privacy over the Internet for applications such as web, email, instant messaging (IM) and some virtual private networks (VPNs)[^106]."
+
+> "The Heartbleed bug allows anyone on the Internet to read the memory of the systems protected by the vulnerable versions of the OpenSSL software. This compromises the secret keys used to identify the service providers and to encrypt the traffic, the names and passwords of the users and the actual content. This allows attackers to eavesdrop on communications, steal data directly from the services and users and to impersonate services and users[^106]."
+
+Links to Security Now Technical Podcast explaing HeartBleed
+
+* [https://twit.tv/shows/security-now/episodes/450 - Part 1](https://twit.tv/shows/security-now/episodes/450 "heartbleed podcast part 1")
+* [https://twit.tv/shows/security-now/episodes/451 - Part 2](https://twit.tv/shows/security-now/episodes/451 "heartbleed podcast part 2")
+
+Due to the severity of Heartbleed exploit, the importance and use of OpenSSL to the function of the internet, and the woeful donations and understaffing of the project, the Linux Foundation announced in April of 2014 the creatin of a Core Infrastructure program that will fund and adopt critical project such as OpenSSL.
+
+> "SAN FRANCISCO, April 24, 2014 – The Linux Foundation today announced it has formed a new project to fund and support critical elements of the global information infrastructure. The Core Infrastructure Initiative enables technology companies to collaboratively identify and fund open source projects that are in need of assistance, while allowing the developers to continue their work under the community norms that have made open source so successful. Founding backers of the Initiative include Amazon Web Services, Cisco, Dell, Facebook, Fujitsu, Google, IBM, Intel, Microsoft, NetApp, Rackspace, VMware and The Linux Foundation[^107]."
 
 #### LibreSSL
 
-Not to be outdone, the OpenBSD group immediately after HeartBleed, made a fork of the OpenSSL repo and began to strip out as much uneeded code as possible and to write new code.  This library became the default cryptographic library on OpenBSD and was ported to Linux.  Though it is new and has a smaller attack surface, so many products (for better or worse) are using OpenSSL that they have not or cannot switch libraries.
+Not to be outdone, the OpenBSD group immediately after HeartBleed, made a fork of the OpenSSL project code and called it [LibreSSL](https://www.libressl.org/ "LibreSSL") and began to strip out as much uneeded code as possible and to write new code.  This library became the default cryptographic library on OpenBSD and was ported to Linux.  Though it is new and has a smaller attack surface, so many products (for better or worse) are using OpenSSL that they have not or cannot switch libraries. Microsoft adopted its use in their native SSh client and server in Windows 10 as well.
 
-[BSD LibreSSL announcement and link]
+> "LibreSSL is a version of the TLS/crypto stack forked from OpenSSL in 2014, with goals of modernizing the codebase, improving security, and applying best practice development processes.
+
+Primary development occurs inside the OpenBSD source tree with the usual care the project is known for. On a regular basis the code is re-packaged for portable use by other operating systems (Linux, FreeBSD, Windows, etc)[^105]."  
 
 ### SFTP
 
-Secure FTP
+Secure FTP uses the traditional FTP program but over a secure SSH tunnel. This allows you keep using existing file transfer methodologies but in a secure manner.  FTP (file transfer protocol) is an unencypted way to transfer files to and from a server. Its usage is discouraged as the protocol was developed at a time when security was not a consideration.  All data, including passwords are trasnmitted in clear text.  SFTP solves that issue of allowing you to use FTP but over an established SSH connection--there by using an SSH tunnel to provide encryption for the transmitted packets.  Some would argue the rise in using version control such as Git makes SFTP/FTP redundant.  
 
-Allows you to use the old but reliable ```FTP``` File Transfer Protocol.  Normally FTP usage is discouraged as the protocol was developed at a time when security was not a consideration.  All data, including passwords are trasnmitted in clear text.  SFTP solves that issue of allowing you to use FTP but over an established SSH connection--there by using an SSH tunnel to provide encryption for the transmitted packets.
+```sftp \[-i identity_file\] username@hostname```
 
-## SCP
+### SCP
 
 Secure cp (copy) Allows for using the ```cp``` command to a remote system via SSH, as SFTP should be used for moving multiple files, this command is good for moving a single file quickly via the command line.
 
+```scp \[-i identity_file\] username@hostname filename```
+
+### ssh-copy-id
+
+After generating an SSH keypair with the command ```ssh-keygen```, you now have the two keys located in you ```~/.ssh``` directory.  The file with the .pub extension is the public key, the other is the private key.  Guard the private key with your life.  
+
+![*ssh-keygen command output*](images/Chapter-09/ssh/ssh-keygen.png "ssh-keygen command output")
+
+There is a command that will let you securely exchange RSA keys with a server.
+
+```ssh-copy-id username@hostname```  which requires you first to have an account on the server (host) you are connecting to.  There is an optional command if you want to transfer the identity other than the default id_rsa, ```ssh-copy-id -i identityname username@hostname```
+
+### ssh config file
+
+The ssh command has a provision for a file named ```config``` located in the ```~/.ssh``` directory.  This is where you can hardcode short cut information per connection.  Items such as:
+
+* Turning off stricthostkeychecking
+* predefining hostname
+* defining a non-default connection port
+* predefining a password (not recommended)
+* defining a non-default RSA private key
+
+The format of the file is as such:
+
+![*ssh config file](images/Chapter-09/ssh/config.png "ssh config file")
+
+By having this config file the command: ```ssh joseph@development.com -i id_ub2``` now becomes ```ssh devel```.
+
+The full range of options for the config file can be found in this Digital Ocean Turotial located at [https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client](https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client "Digital Ocean Tutorial for ssh config file")
+
+### SSH Service Daemons ans Security
+
+SSH has two configuration files that control its abilites.  Located at ```/etc/ssh/ssh_config``` and ```/etc/ssh/sshd_config```.  The first file contains user information about what options your client will present and use when connecting to a remote SSH server.  
+
+In the ssh_config file you can modify these lines to increase the security of the encryption ciphers you use.  By default OpenSSH defaults back to an older and weaker set of encryption ciphers such as:
+
+```Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc```
+
+You would uncomment the line andthe entries with a more robust list.  You would want to make sure that the coresponsiding SSH server in the ```sshd_config``` file had the same ciphers set other wise negotiation could fail and no connection would take place[^109].
+
+```Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,```
+```aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr```
+
+You could also disable password authentication to a remove server and only use RSA key authentication.  Uncomment the line ```#PasswordAuthentication yes``` and change it to ```PasswordAuthentication no```[^108].  By default Fedora and BSD based operating sysems allow the Root account to connect via SSH using a password.  This is inherantly dangerous, Ubuntu uses the value prohibit-password which would allow RSA but not password based auth. It is generally not a good idea to allow this and uncomment and change this setting from  ```PermitRootLogin yes``` to ```PermitRootLogin no```[^110].
+
+Upon changing any values you need to restart the ssh service via ```sudo systemctl sshd reload```.
+
 ## Chapter Conclusions and Review
 
-  Through this chapter we learned about the su, sudo, and root user account paradigms.  We learned when to use them and how they were designed. We learned about the nature of traditional logging (non-systemd) and how they are stored.  We learned about a newer logging format in the journald service from systemd.  Finally we learned about system monitoring tools for visual display of system resources being used.  Finally we learned about the 3Ps of Linux troubleshooting.
+Through this chapter we learned about the su, sudo, and root user account paradigms.  We learned when to use them and how they were designed. We learned about the nature of traditional logging (non-systemd) and how they are stored.  We learned about a newer logging format in the journald service from systemd.  Finally we learned about system monitoring tools for visual display of system resources being used.  Finally we learned about the 3Ps of Linux troubleshooting.
 
 ### Review Questions
-
-Review Questons Chapter 09
 
 1) What user account has superuser privilege in Linux?
 a. ```sudo```
@@ -562,13 +620,13 @@ b.  The user RMS has sudo permissions
 c.  The group RMS has sudo permissions to all commands
 d.  The user RMS has sudo permissions and access to all commands, and requires no password to elevate to the sudo user
 
-10)  When using the su command to switch from a regular user account to the root user account, what do you type to return to the standard user account?
+10) When using the su command to switch from a regular user account to the root user account, what do you type to return to the standard user account?
 a.  quit
 b.  exit
 c.  stop
 d.  sudo reboot
 
-11)  What command would you use to edit the file at this location:  /var/www/html/index.html?
+11) What command would you use to edit the file at this location:  /var/www/html/index.html?
 a.  vi /var/www/html/index.html
 b.  sudo vim /var/www/html/index.html
 c.  vim /var/www/html/index.html
@@ -616,7 +674,7 @@ b.  usermod
 c.  adduser
 d.  add
 
-19) What command would be used to modify a user account settings and add them to the sudo users group (user is named controller)?
+19) What command would be used to modify a user account settings and add them to the sudo users group on an Ub untu distro (user is named controller)?
 a.  ```sudo useradd -aG sudo controller```
 b.  ```sudo usermod -aG sudo controller```
 c.  ```sudo usermod -G sudo controller```
@@ -645,7 +703,7 @@ Node.js Update
 * ~17:20 What are the two popular desktop apps built in NodeJS that Mikael mentioned?
 * ~ 19:30 What are some of the ways to learn NodeJS?
 * ~ 21:30 What did Microsoft do with NodeJS and where did it get Node?
-* ~ 22:30, Mikael mentions multiple languages: TypeScript, CoffeeScript, Electron, and Dart -- what are they and hwo do they relate to the NodeJS project? (Need to do some side research)
+* ~ 22:30 Mikael mentions multiple languages: TypeScript, CoffeeScript, Electron, and Dart -- what are they and how do they relate to the NodeJS project? (Need to do some side research)
 * ~25:27 What company started the NodeJS and eventually the NodeJS foundation? (Currently owned by Samsung)
 * ~ 26:43 What does the NodeJS foundation do (what is its role?)
 * ~ 34:00 Who is the guest and what is his job?
@@ -655,68 +713,86 @@ Node.js Update
 * ~47:40 What is the Go language good at and what is it not?
 * ~50:55 Is there any relationship between NodeJS and Docker?
 
-
 ### Lab
-
-Chapter 09 Lab
 
 Objectives
 
-  The objective of this lab are as follows:
+The objective of this lab are as follows:
 
-  * Understand when and how to use the sudo command
-  * Understand how to edit the /etc/sudoers file
-  * Understand how to use the journald and journalctl logging mechanism in systemd
-  * Understand how to add and manage user accounts
-  * Understand the structure and use of the cron service
+* Understand when and how to use the sudo command
+* Understand how to edit the /etc/sudoers file
+* Understand how to use the journald and journalctl logging mechanism in systemd
+* Understand how to add and manage user accounts
+* Understand the structure and use of the cron service
+* Understand how to modify, use, and secure the SSH service
 
 Outcomes
 
-   At the outcome of this lab you will be able to successfully understand how to apply the sudo/root user paradigm.  You will understand the binary logging mechanism of journald.  You will be able to add, delete, and modify user accounts.  Finally you will be able to schedule shell scripts to execute at repeated intervals.
+At the outcome of this lab you will be able to successfully understand how to apply the sudo/root user paradigm.  You will understand the binary logging mechanism of journald.  You will be able to add, delete, and modify user accounts.  Finally you will be able to schedule shell scripts to execute at repeated intervals.
 
-   __Note__ you will need to submit a screenshot of the correct command(s) in action.
-   __Note__ if a command asks you to work on a user that doesn't exist it is assumed that you have to create it.
-   __Note__ The ```mysqldump``` application requires the ```mysql-client``` package to be installed. [http://superuser.com/questions/165582/installation-mysqldump](http://superuser.com/questions/165582/installation-mysqldump)
+__Note__ Submit the answers all contained in one shellscript with a comment above stating which question the code answers
+__Note__ If a command asks you to work on a user that doesn't exist it is assumed that you have to create it.
+__Note__ The ```mysqldump``` application requires the ```mysql-client``` package to be installed. [http://superuser.com/questions/165582/installation-mysqldump](http://superuser.com/questions/165582/installation-mysqldump)
 
-   1)  What would be the command to add a user named "controller" to your system - using the system default values?  
+1)  What would be the command to add a user named "controller" to your system - using the system default values?  
 
-   1)  What would be the command to modify the user's group to add them to a *superuser* group (sudo on Ubuntu or wheel on Fedora based)?
+1)  What would be the command to modify the user's group to add them to a *superuser* group (sudo on Ubuntu or wheel on Fedora based)?
 
-   1)  What would be the command to delete a user account named nsa-spy?  (Note you also have to include the steps to add this user... unless the NSA is already in your system =)
+1)  What would be the command to delete a user account named nsa-spy?  (Note you also have to include the steps to add this user... unless the NSA is already in your system =)
 
-   1)  What would be the command to edit the ```/etc/sudoers``` file and give the user "mysql-backup" sudo privilege? (Show the /etc/sudoers being edited and enter the relevant line that you add to that file)
+1)  What would be the command to edit the ```/etc/sudoers``` file and give the user "mysql-backup" sudo privilege? (Show the /etc/sudoers being edited and enter the relevant line that you add to that file)
 
-   1)  What would be the command to edit the ```/etc/sudoers``` file and give the group "mysql-admins" sudo privilege? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
+1)  What would be the command to edit the ```/etc/sudoers``` file and give the group "mysql-admins" sudo privilege? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
 
-   1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only use the mysql database backup command "mysqldump" ? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
+1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only use the mysql database backup command "mysqldump" ? (Show the ```/etc/sudoers``` being edited and enter the relevant line that you add to that file)
 
-   1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only execute the ```mysql``` command and not require a password?
+1)  What would be the command to edit the ```/etc/sudoers``` file to give the user "mysql-admin" sudo privilege to only execute the ```mysql``` command and not require a password?
 
-   1)  When you execute the command tail journalctl - you receive an error?  Show the error in a screenshot and explain why the error comes?
+1)  When you execute the command tail journalctl - you receive an error?  Show the error in a screenshot and explain why the error comes?
 
-   1) What would be the command to execute to find all the occurences of logs generated by SSHD in journalctl?  P.168 in the text book -- you may need to install ```openssh-server``` package if the command returns no results
+1) What would be the command to execute to find all the occurences of logs generated by SSHD in journalctl?  P.168 in the text book -- you may need to install ```openssh-server``` package if the command returns no results
 
-   1)  What would be the command to execute to find all the logs generated by _PID=1 (systemd itself) and since yesterday?
+1)  What would be the command to execute to find all the logs generated by _PID=1 (systemd itself) and since yesterday?
 
-   1)  What would be the command to execute to see the logs of the current boot only using journalctl?
+1)  What would be the command to execute to see the logs of the current boot only using journalctl?
 
-   1)  Which file and what value would I modify to change the journal's settings to make the logs be stored in memory (volatile)?
+1)  Which file and what value would I modify to change the journal's settings to make the logs be stored in memory (volatile)?
 
-   1)  The journald values SystemMaxUse= and RuntimeMaxUse= default to 10% and 15% of the system disk respectively.  How would you modify that value to be 20% and 30% respectively?  (Note you can't add percentages, you have to use your system and do some scratch math - you can execute a ```df -H``` command to see the size of your root partition)
+1)  The journald values SystemMaxUse= and RuntimeMaxUse= default to 10% and 15% of the system disk respectively.  How would you modify that value to be 20% and 30% respectively?  (Note you can't add percentages, you have to use your system and do some scratch math - you can execute a ```df -H``` command to see the size of your root partition)
 
-   1)  What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2 am every Sunday?
+1)  What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2 am every Sunday?
 
-   1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at the 1st day of every month?
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at the 1st day of every month?
 
-   1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) every 45 minutes?
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) every 45 minutes?
 
-   1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) on every 45 minutes past the hour on Sundays?  
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) on every 45 minutes past the hour on Sundays?  
 
-   1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2:45am on this coming Tuesday only?
+1) What would be the command to edit the cron service and run this command "mysqldump --xml -u root world City" (Assume you have mysql installed) at 2:45am on this coming Tuesday only?
 
-   1) What command would you use to change the group ownership of the file todo-list.txt to be owned by the "accounting" group?  (If that group doesn't exist then create it on your system)
+1) What command would you use to change the group ownership of the file todo-list.txt to be owned by the "accounting" group?  (If that group doesn't exist then create it on your system)
 
-   1) What command would you use to change the group ownership and file ownership (on one command) of the file ```todo-list.txt``` to be ```root:root```?
+1) What would be the command you would type to generate a RSA key pair?
+
+1) What would be the command to transfer an RSA key pair to a remote system named logserver with the username worker?
+
+1) What would be the command to connect via ssh using the identity logserver and connect to the non-standard port of 5555 instead of the default 22?
+
+1) The next questions require some setup:
+   i. You need two virtual mahcines for this part: One Ubuntu 16.04 and one Fedora 28 (or two comparablely different OSes, FreeBSD, Trisquel, etc etc).  
+   i. You will need to modify the Network settings to **Bridged** in Virtualbox to get a public IP (if you are at home your router should suffice, if you are on campus you can come to the lab).  
+   i. Install **openssh-server** on Fedora28.
+   i. Clone the repository [https://github.com/arthepsy/ssh-audit](https://github.com/arthepsy/ssh-audit "SSH audit tool") to both the client and server system
+   i. Run the ssh audit on the client and server, list the weak ciphers installed by default
+
+1) Modify the client and servers using the example in the text to increase cipher strength, run the ssh-audit tool again and report any weak ciphers or security anomolies.
+
+1) On the SSH server make the following changes to the sshd_config file and paste them at the end of the ReadMe.md file
+  i. Not accept any password based authentication attempts
+  i. Change the default port to be 5555
+  i. Disable the value PermitRootLogin
+
+
 
 #### Footnotes
 
@@ -749,3 +825,16 @@ Outcomes
 [^103]: [http://hisham.hm/htop/](http://hisham.hm/htop/)
 
 [^104]: [https://en.wikipedia.org/wiki/Syslog](https://en.wikipedia.org/wiki/Syslog)
+
+[^105]: [https://www.libressl.org/](https://www.libressl.org/ "Libressl")
+
+[^106]: [http://heartbleed.com](http://heartbleed.com "heartbleed")
+
+[^107]: [https://www.linuxfoundation.org/press-release/2014/04/amazon-web-services-cisco-dell-facebook-fujitsu-google-ibm-intel-microsoft-netapp-rackspace-vmware-and-the-linux-foundation-form-new-initiative-to-support-critical-open-source-projects/](https://www.linuxfoundation.org/press-release/2014/04/amazon-web-services-cisco-dell-facebook-fujitsu-google-ibm-intel-microsoft-netapp-rackspace-vmware-and-the-linux-foundation-form-new-initiative-to-support-critical-open-source-projects/ "Linux foundation adopts OpenSSL as core infrastructure")
+
+[^108]: [https://askubuntu.com/questions/2271/how-to-harden-an-ssh-server/2279](https://askubuntu.com/questions/2271/how-to-harden-an-ssh-server/2279 "harden SSH server")
+
+[^109]: [https://unix.stackexchange.com/questions/333728/ssh-how-to-disable-weak-ciphers](https://unix.stackexchange.com/questions/333728/ssh-how-to-disable-weak-ciphers "SSH how to disable weak ciphers")
+
+[^110]: [https://askubuntu.com/questions/449364/what-does-without-password-mean-in-sshd-config-file](https://askubuntu.com/questions/449364/what-does-without-password-mean-in-sshd-config-file "SSH what does without password mean in sshd conf")
+

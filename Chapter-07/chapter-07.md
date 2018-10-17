@@ -3,7 +3,7 @@
 
 ### Objectives
 
-  In the chapter we will be continuing our exploration of the Linux Shell.  We will be introducing editors and examining there use in managing our Linux system.  We will also look at understanding user environments and write our initial shell scripts.
+  In the chapter we will be continuing our exploration of the Linux Shell.  We will be introducing editors and examining their use in managing our Linux system.  We will also look at understanding user environments and write our initial shell scripts.
 
 *  Understand the difference between stream editors and text editors
 *  Understand and learn how to use the vi editor
@@ -212,11 +212,11 @@ __EX__ mode also contains the ability to search for occurrences of text patterns
 
 __vi__ also has the ability to find and replace via a single line or globally.  By typing the ```ESC then :``` you will enter the same __ex__ mode mentioned above when learning about saving and quitting files.  See the sample file ```2016-05-31-using-s3cmd.md``` located in the chapter-07 directory of the files folder.
 
-```s/Tuesday/Wednesday```
+```s/Hajek/Jhajek```
 
 :  The *s* tells us it is a single find and replace or substitute.  This is a single instance replacement.
 
-```s/False/True/g```
+```s/jeremy/ClassWork/g```
 
 :  This command the *s* tells us to substitute the word *False* for the word *True* and the trailing *g* means every occurrence on that line.
 
@@ -224,7 +224,7 @@ __vi__ also has the ability to find and replace via a single line or globally.  
 
 :  This command has a range prefix the *1* tells the replacement to start from line 1 and continue to line *$* which is the last line of the file, and replace all occurrences (replace all) of ```&#47;``` which is the html code for a ```/``` and note the escapes needed to replace it with a ```/```
 
-```47,86s/<br \/>//g```
+```,86s/<br \/>//g```
 
 :  This command tells us to do the replacement of lines 47-86 and strip out all the extranuous ```<br />``` tags only.  Note the backslash to escape the forward slash.
 
@@ -306,7 +306,7 @@ Remember the command to insert a new line?  That would be ```ESC shift + o```.  
 
 echo "Here is the content of the ~/Documents/hosts.deny file"
 echo "********************************************************"
-tail ~/Documents/hosts.deny
+tail ~/Linux-text-book-part-1/files/Chapter-07/logs/hosts.deny
 echo "********************************************************"
 ```
 
@@ -354,25 +354,23 @@ We would go from this ```rw-rw-r--``` to this ```rwxrw-r--```.  We could do that
 ```chmod ug+rwx list-ip.sh```         Owner and group are give rwx permissions together.
 ------------------------------   -----------------------------------------------------------
 
-  You will notice that in the terminal (where supported) files marked executable will turn green.  If you use the ```ls -lF``` flag you will also see that executable files will be marked with an asterisk.  Now you can finally execute your command ```./list-ip.sh``` and see the last ten lines of output from the shell script.
+You will notice that in the terminal (where supported) files marked executable will turn green.  If you use the ```ls -lF``` flag you will also see that executable files will be marked with an asterisk.  Now you can finally execute your command ```./list-ip.sh``` and see the last ten lines of output from the shell script.
 
 ![*Execute Permission enabled - turns green*](images/Chapter-07/editors/bash/execute.png "Execute Permission")
 
-  In addition to creating a shell script you can chain the command to change the permissions of the shell script by using the ```&&```.   You can chain those two commands together like this: ```vim sort-ip.sh && chmod 755 script1.sh```  This will execute the vi command and once you save and exit the file then the next command to change mode or chmod will take place and grant the file execute permissions.
-
 ## Understanding .bashrc
 
-  When your system first boot up how does it know how to define system environment variables and system PATH variables?  Part of the boot process is to read and source the ```/etc/profile``` file.  This is a system wide profile so all users accounts created will inherit from this file.
+When your system first boots up how does it know how to define system environment variables and system PATH variables?  Part of the boot process is to read and source the ```/etc/profile``` file.  This is a system wide profile that all users accounts will inherit from this file.
 
-  Next there is local login profile.  This is additional customization added to your account after you log in either remotely or locally via username/password.  There could be any number of files from this list in this order: ```~/.bash_profile``` or ```~/.bash_login``` or ```~/.profile``` (.profile is a hold over from the Korn shell--since bash is ksh compatible).
+Next there is local login profile.  This is additional customization added to your account after you log in via username/password.  There could be any number of files from this list in this order: ```~/.bash_profile``` or ```~/.bash_login``` or ```~/.profile``` (.profile is a hold over from the Korn shell--since bash is ksh compatible).
 
-  Then once logged in upon launching a terminal there is another set of profiles to be processed. The ```~/.bashrc``` file is processed.   The template for this file is generally located in ```/etc/bashrc``` if you want to customize or replace a ```~/.bashrc``` file.  There is one final file that you can use to modify a system environment upon logout and that is the ```~/.bash_logout``` file.
+Then once logged in upon launching a terminal there is another set of profiles to be processed. The ```~/.bashrc``` file is processed.   The template for this file is generally located in ```/etc/bashrc``` if you want to customize or replace a ```~/.bashrc``` file.  There is one final file that you can use to modify a system environment upon logout and that is the ```~/.bash_logout``` file.
 
-  If you wanted to make modification to your $PATH variable to include a directory for the newly made shell scripts you can modify the PATH directly on the command line.  The problem is that this variable will only stay in memory for the duration of the terminal window--as soon as it is closed the PATH reverts to the one it started with.  In order to permanently modify the PATH we need to modifiy it in one of the profile files.  The best place to make user specific changes is in the ```~/.bashrc``` file.  
+If you wanted to make modification to your $PATH variable to include a directory for the newly made shell scripts you can modify the PATH directly on the command line.  The problem is that this variable will only stay in memory for the duration of the terminal window--as soon as it is closed the PATH reverts to the one it started with.  In order to permanently modify the PATH we need to modifiy it in one of the profile files.  The best place to make user specific changes is in the ```~/.bashrc``` file.  
 
 ![*.bashrc*](images/Chapter-07/editors/bash/bashrc.png ".bashrc")
 
-  As you can see the file is very sparse.  There is a specific header allowing you to add user logic at the end of the file.   Let's try to add to the PATH.  When updating a shell variable we need to use the ```export``` command so that the system is aware of the new variable value.  Think of it as a *refresh* command.  In addition to the PATH variable to see all the system variables your distro sets, type ```printenv``` from the shell.
+As you can see the file is very sparse.  There is a specific header allowing you to add user logic at the end of the file.   Let's try to add to the PATH.  When updating a shell variable we need to use the ```export``` command so that the system is aware of the new variable value.  Think of it as a *refresh* command.  In addition to the PATH variable to see all the system variables your distro sets, type ```printenv``` from the shell.
 
 > __Example Usage:__ Type ```mkdir ~/Documents/scripts```. Now copy your ```list-ip.sh``` to this directory. Let's add this directory to our PATH in our ```~/.bashrc``` file. Finally before we edit let's print out the content of the PATH system variable so we can see our changes later.  How would you do that? Let us open our ```~/.bashrc``` file in vi.  Now move the cursor position to the bottom of the file.  Type ```ESC shift+o``` to insert a new line.   Now type ```ESC i``` to change to INSERT mode.   Type the line ```PATH=$PATH:~/Documents/scripts``` followed by a new line (vim cheats and will accept the ENTER key in addition to ```ESC shift+o```) and then let's export the new variable content by typing ```export PATH```  now exit __vi__.
 
@@ -438,7 +436,7 @@ d. em -> ed -> vi -> vim
 
 12. Which command in ex mode (vi) will save the current file you are working on and exit the vi editor? (include the ":")
 
-13.  In the log file u\_ex150911.log what would be the ex command to search forward for occurrences of xmlrpc.php? (include the forward slash)
+13.  In the log file u\_ex150911.log what would be the ex command to search forward for occurrences of YandexBot? (include the forward slash)
 
 14.  Assuming your pwd is Linux-text-book-part-I and you have loaded Chapter-02.chapter-02.md into vi, what would be the ex mode command to replace all occurrences of linux with Linux?
 
@@ -478,30 +476,31 @@ Listen to the FLOSS podcast number 88 with [Linus Torvalds - http://twit.tv/show
 
 ### Lab Chapter 7
 
-__Objectives:__ The objective of this lab is to master the command and control of the vim editor as well as the commandline version control tool Git.  
+__Objectives:__ The objective of this lab is to master vi commands and shell scripts
 
 __Outcomes:__ At the end you will have mastered the basics of vi and now be proficient in all the tools of Linux shell scripting
 
-*Prereqs:*  You will need to install the program ```vimtutor``` and ```git``` for the first part.   You can do that on Ubuntu by typing ```sudo apt-get install vim vim-runtime vim-gtk``` and on Fedora by typing ```sudo dnf install vim vim-enhanced```. 
-
-1) Go to [github.com](https://www.github.com "Github") and sign up for a github ID. If you already have one you can use that ID and submit that ID name through Blackboard.  Upon this you will be issued your own Private Github repo that I can access to see an review your assignments. __Deliverable:__ Submit your Github ID through Blackboard.
-
-1) Complete the Basic Git - tutorial here: [https://www.codecademy.com/learn/learn-git](https://www.codecademy.com/learn/learn-git "Learn Git")  You will need to create an account with Codecademy. Select the Google sign in option and use your @hawk account to authenticate and create an account. Upon completion of this tutorial you will receive a badge of completion. 
-    i. See sample output here: [https://github.com/illinoistech-itm/jhajek](https://github.com/illinoistech-itm/jhajek "sample")
-    i. Clone the assigned private repo to the Linux system of your choice
-    i. Using this guide, [https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/ "Mastering Markdown") create a ReadMe.md file with the following content:
-    i. Create an H1 With your name, below it display an image of yourself and one other image that describes you (favorite soccer team or TV show for instance) Push your two images to the images folder you created in your repo 
-    i. Create an additional H1 tag and label it "Where are you from?" and tell us where are your from, below the H1 tag
-    i. Create an additional H1 tag and label it "IT Background" and tell us what your IT specialty or interest is
-    i. Create an additional H1 tag and label it "Something interesting about you" and tell us something different or unique about you: hobbies, awards, famous relatives...
-    i. Create an additional H1 tag labeled "Git Tutorial" and post your progress badge from the previous Git Tutorial assignment
-    i. Submit to Blackboard your Github account URL for this project
+*Prereqs:*  You will need to install the program ```vimtutor``` for the first part.   You can do that on Ubuntu by typing ```sudo apt-get install vim vim-runtime vim-gtk``` and on Fedora by typing ```sudo dnf install vim vim-enhanced```. 
 
 1) To begin type the command ```vimtutor``` from the commandline. __Warning:__ ```vimtutor``` requires you to read the instructions carefully.
     i) This is a 6 part tutorial.  You need to follow all the steps of the 6 part tutorial making your changes directly in the file.
     i) __Be careful__ to save the file to an external location – otherwise IT WILL BE OVERWRITTEN each time you launch the vimtutor command. You can do this by typing ```:w  ~/Documents/vimtutor.txt``` - this way you can edit the file on your local system instead of launching the vimtutor application again.  Note you need to use ```vim``` for this assignment.
-    i) Create a folder named ITMO-556 and then a subfolder named Week-07 in your local git repo.  Include *vimtutor.txt* in Week-07 and push this code to Github.
-    i) __Deliverable:__ Submit your Github URL for your repo
+1) Inside of the ```files/Chapter-07/lab``` folder using ```vim``` open ```install-java-8-openjdk.sh```.  You will be using vim to modify this file
+    i)  Use the ex command to find all occurances of ```;``` and replace them with ```&&```.
+    i)  Using vim commands replace all occurances of the numbers ```2.6.5``` with ```3.0.0```.
+    i)  Using vim to append the packages ```python``` and ```python-dev``` to line 18.  
+    i)  In the shell script,  ```install-java-8-openjdk.sh```,  using vim insert a comment above each line explaining what the commmand is doing.
+1) In vim using the file ```install-java-8-openjdk-fixed.sh```,  there are numerous path, permission, and dependency errors.  Using vim, fix the shell script, give it executable permission, and have it run succesfully.   
+    i) use the find command to locate tools.jar and change the path in line 9.
+    i) there are directories that don't exist -- change those paths
+    i) replace the references to my home directory
+    i) after sourcing the ```.bashrc``` file with the command ```. ~/.bashrc```, execute the command ```hadoop version``` if version information outputs succesfully then you have succeded.
+    
+__Deliverable:__  
+
+1) Push the file ```install-java-8-openjdk.sh``` in your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
+1) Push the file ```vimtutor.txt``` to your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
+1) Push the file ```install-java-8-openjdk-new.sh``` to your week-07 > itmo-556 Github repo.  Submit your Github URL for your repo to Blackboard.
 
 #### Footnotes
 
